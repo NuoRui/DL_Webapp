@@ -1,0 +1,7 @@
+<select name="company" style="width: 100%;height: 32px;">
+    {{#each repository.companies}}
+    <option value="{{id}}">{{name}}</option>
+    {{else}}
+    <option value=""></option>
+    {{/each}}
+</select>

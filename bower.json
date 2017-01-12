@@ -1,0 +1,11 @@
+{
+    "name": "dlwebapp",
+    "description": "Dong Lian Web App bower install",
+    "version": "0.0.1",
+    "author": "Zhu Zheng",
+    "main": "./",
+    "dependencies": {
+        "framework7": "~1.5.0",
+        "moment": "^2.17.1"
+    }
+}
