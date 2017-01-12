@@ -110,6 +110,50 @@ module.exports = {
         });
     },
 
+	getMfgpickers: function (callback) {
+		xhr.simpleGet('mfgpicker/listpack', {
+			order_id: gCurrentCompany.id
+		}, function(res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
+	removeMfgpicker: function (callback, id) {
+		xhr.simplePost('mfgstorage/delpack', {
+		}, {
+			id: id
+		}, function (res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
+	getMfgpickerItems: function(callback, id) {
+		xhr.simpleGet('mfgpicker/listfollow', {
+			pid: id
+		}, function(res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
+
 
     // getQuotationDetail: function(callback, supplier_id) {
      //    xhr.simpleGet('supplier/listdata', {

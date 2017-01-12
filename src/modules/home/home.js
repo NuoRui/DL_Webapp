@@ -2,7 +2,7 @@ require('./home.less');
 
 var utils = require('../core/utils');
 var indentPageHtml = require('../indent/indent.html');
-var quotationPageHtml = require('../quotation/quotation.html');
+var mfgpickerPageHtml = require('../mfgpicker/mfgpicker.html');
 var companiesTemplate = require('./home.tpl.html');
 
 
@@ -28,9 +28,9 @@ var homeModule = {
 			handler: this.indentSelector
 		},{
 			element: '#homePage',
-			selector: '.quotation-selector',
+			selector: '.mfgpicker-selector',
 			event: 'click',
-			handler: this.quotationSelector
+			handler: this.mfgpickerSelector
 		}];
 
 		utils.bindEvents(bindings);
@@ -40,8 +40,8 @@ var homeModule = {
 		nrApp.getCurrentView().router.loadContent(indentPageHtml);
 	},
 
-	quotationSelector: function () {
-		nrApp.getCurrentView().router.loadContent(quotationPageHtml)
+	mfgpickerSelector: function () {
+		nrApp.getCurrentView().router.loadContent(mfgpickerPageHtml)
 	},
 
 	showCompanies: function () {
@@ -49,7 +49,7 @@ var homeModule = {
 			return;
 		}
 
-		var output = utils.renderTpl(companiesTemplate, {repository: gRepository});
+		var output = utils.renderTpl(companiesTemplate, {repository: gRepository, curCompanyId: gCurrentCompany.id});
 		$$('#companySelection').html(output);
 
 		var self = this;
@@ -60,7 +60,9 @@ var homeModule = {
 			handler: self.refreshCurrentCompany
 		}]);
 
-		this.refreshCurrentCompany();
+		if (!gCurrentCompany.id) {
+			this.refreshCurrentCompany();
+		}
 	},
 
 	refreshCurrentCompany: function () {

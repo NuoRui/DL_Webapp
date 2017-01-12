@@ -1,8 +1,8 @@
 var homeModule = require('./home/home');
 var settingModule = require('./setting/setting');
 var aboutModule = require('./about/about');
-var quotationModule = require('./quotation/quotation');
-var quotationDetailModule = require('./quotation/detail/quotation.detail');
+var mfgpickerModule = require('./mfgpicker/mfgpicker');
+var mfgpickerDetailModule = require('./mfgpicker/detail/mfgpicker.detail');
 var indentModule = require('./indent/indent');
 var indentNewModule = require('./indent/new/indent.new');
 var indentEditModule = require('./indent/edit/indent.edit');
@@ -60,12 +60,12 @@ module.exports = {
 				aboutModule.pageBeforeInit && aboutModule.pageBeforeInit(page);
 				break;
 
-			case 'quotation.page':
-				quotationModule.pageBeforeInit && quotationModule.pageBeforeInit(page);
+			case 'mfgpicker.page':
+				mfgpickerModule.pageBeforeInit && mfgpickerModule.pageBeforeInit(page);
 				break;
 
-			case 'quotation.detail.page':
-				quotationDetailModule.pageBeforeInit && quotationDetailModule.pageBeforeInit(page);
+			case 'mfgpicker.detail.page':
+				mfgpickerDetailModule.pageBeforeInit && mfgpickerDetailModule.pageBeforeInit(page);
 				break;
 
 			case 'indent.page':
@@ -98,12 +98,12 @@ module.exports = {
 				aboutModule.pageInit && aboutModule.pageInit(page);
 				break;
 
-			case 'quotation.page':
-				quotationModule.pageInit && quotationModule.pageInit(page);
+			case 'mfgpicker.page':
+				mfgpickerModule.pageInit && mfgpickerModule.pageInit(page);
 				break;
 
-			case 'quotation.detail.page':
-				quotationDetailModule.pageInit && quotationDetailModule.pageInit(page);
+			case 'mfgpicker.detail.page':
+				mfgpickerDetailModule.pageInit && mfgpickerDetailModule.pageInit(page);
 				break;
 
 			case 'indent.page':
@@ -136,12 +136,12 @@ module.exports = {
 				aboutModule.pageBeforeAnimation && aboutModule.pageBeforeAnimation(page);
 				break;
 
-			case 'quotation.page':
-				quotationModule.pageBeforeAnimation && quotationModule.pageBeforeAnimation(page);
+			case 'mfgpicker.page':
+				mfgpickerModule.pageBeforeAnimation && mfgpickerModule.pageBeforeAnimation(page);
 				break;
 
-			case 'quotation.detail.page':
-				quotationDetailModule.pageBeforeAnimation && quotationDetailModule.pageBeforeAnimation(page);
+			case 'mfgpicker.detail.page':
+				mfgpickerDetailModule.pageBeforeAnimation && mfgpickerDetailModule.pageBeforeAnimation(page);
 				break;
 
 			case 'indent.page':
@@ -174,12 +174,12 @@ module.exports = {
 				aboutModule.pageAfterAnimation && aboutModule.pageAfterAnimation(page);
 				break;
 
-			case 'quotation.page':
-				quotationModule.pageAfterAnimation && quotationModule.pageAfterAnimation(page);
+			case 'mfgpicker.page':
+				mfgpickerModule.pageAfterAnimation && mfgpickerModule.pageAfterAnimation(page);
 				break;
 
-			case 'quotation.detail.page':
-				quotationDetailModule.pageAfterAnimation && quotationDetailModule.pageAfterAnimation(page);
+			case 'mfgpicker.detail.page':
+				mfgpickerDetailModule.pageAfterAnimation && mfgpickerDetailModule.pageAfterAnimation(page);
 				break;
 
 			case 'indent.page':
@@ -212,12 +212,12 @@ module.exports = {
 				aboutModule.pageBack && aboutModule.pageBack(page);
 				break;
 
-			case 'quotation.page':
-				quotationModule.pageBack && quotationModule.pageBack(page);
+			case 'mfgpicker.page':
+				mfgpickerModule.pageBack && mfgpickerModule.pageBack(page);
 				break;
 
-			case 'quotation.detail.page':
-				quotationDetailModule.pageBack && quotationDetailModule.pageBack(page);
+			case 'mfgpicker.detail.page':
+				mfgpickerDetailModule.pageBack && mfgpickerDetailModule.pageBack(page);
 				break;
 
 			case 'indent.page':
@@ -250,12 +250,12 @@ module.exports = {
 				aboutModule.pageBeforeRemove && aboutModule.pageBeforeRemove(page);
 				break;
 
-			case 'quotation.page':
-				quotationModule.pageBeforeRemove && quotationModule.pageBeforeRemove(page);
+			case 'mfgpicker.page':
+				mfgpickerModule.pageBeforeRemove && mfgpickerModule.pageBeforeRemove(page);
 				break;
 
-			case 'quotation.detail.page':
-				quotationDetailModule.pageBeforeRemove && quotationDetailModule.pageBeforeRemove(page);
+			case 'mfgpicker.detail.page':
+				mfgpickerDetailModule.pageBeforeRemove && mfgpickerDetailModule.pageBeforeRemove(page);
 				break;
 
 			case 'indent.page':

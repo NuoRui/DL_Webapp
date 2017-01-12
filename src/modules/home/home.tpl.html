@@ -1,6 +1,6 @@
 <select name="company" style="width: 100%;height: 32px;">
     {{#each repository.companies}}
-    <option value="{{id}}">{{name}}</option>
+    <option value="{{id}}" {{#if_compare id "===" @root.curCompanyId}} selected {{/if_compare}}>{{name}}</option>
     {{else}}
     <option value=""></option>
     {{/each}}
