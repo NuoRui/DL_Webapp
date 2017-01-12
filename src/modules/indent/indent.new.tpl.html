@@ -1,0 +1,124 @@
+<div class="content-block">
+	<div class="list-block">
+		<ul style="background-color: transparent;">
+			<li>
+				<a href="#" class="item-link smart-select" data-back-on-select="true">
+					<select name="mfgstorage">
+						<option value="" selected disabled></option>
+						{{#each repository.mfgstorages}}
+						<option value="{{id}}">{{customcode}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">加工厂库存</div>
+							<div class="item-after"></div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="item-link smart-select indent-order" data-back-on-select="true">
+					<select name="order">
+						<option value="" selected disabled></option>
+						{{#each repository.orders}}
+						<option value="{{id}}">{{customcode}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">订单</div>
+							<div class="item-after"></div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li id="orderColor">
+				<a disabled href="#" class="item-link smart-select indent-color" data-back-on-select="true">
+					<select name="color">
+						<option value="" selected disabled></option>
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">颜色</div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="item-link smart-select indent-material" data-back-on-select="true">
+					<select name="material">
+						<option value="" selected disabled></option>
+						{{#each repository.materials}}
+						<option value="{{id}}">{{material}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">产品</div>
+							<div class="item-after"></div>
+						</div>
+					</div>
+				</a>
+			</li>
+
+			<li>
+				<a href="#" class="item-link smart-select indent-craft" data-back-on-select="true">
+					<select name="craft">
+						<option value="" selected disabled></option>
+						{{#each repository.crafts}}
+						<option value="{{id}}">{{craft}}</option>
+						{{/each}}
+					</select>
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title">工艺</div>
+							<div class="item-after"></div>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">缸号</div>
+						<div class="item-input">
+							<input type="number" name="lot" placeholder="0" style="text-align: right">
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">匹数</div>
+						<div class="item-input">
+							<input type="number" name="volume" placeholder="0" style="text-align: right">
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">数量</div>
+						<div class="item-input">
+							<input type="number" name="quantity" placeholder="0" style="text-align: right">
+						</div>
+					</div>
+				</div>
+			</li>
+
+			<li class="align-top">
+				<div class="item-content">
+					<div class="item-inner">
+						<div class="item-title label">备注</div>
+						<div class="item-input">
+							<textarea name="remark"></textarea>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

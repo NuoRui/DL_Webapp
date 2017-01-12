@@ -55,6 +55,7 @@ var app = {
 		window.gConfig = config;
 		window.gUser = storage.getUser();
 		window.gRepository = repository.getRepository();
+		window.gCurrentCompany = {};
 
 		window.nrApp = new Framework7({
 			pushState: false,

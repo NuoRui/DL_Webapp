@@ -2,96 +2,144 @@ require('./indent.less');
 
 var utils = require('../core/utils');
 var api = require('../core/api');
-var indentItemTemplate = require('./indent.item.tpl.html');
-var indentNewPageHtml = require('./new/indent.new.html');
-var indentEditPageHtml = require('./edit/indent.edit.html');
+var indentNewPageHtml = require('./indent.new.tpl.html');
+var indentNewColorTpl = require('./indent.new.color.tpl.html');
+
+var indentRepository = {};
 
 var indentModule = {
     pageInit: function () {
-    	var self = this;
-
 		nrApp.hideToolbar('.main-toolbar');
+		nrApp.showIndicator();
 
-		utils.bindEvents([
-		// 	{
-		// 	element: '#indentPage',
-		// 	selector: '#indent-list div.item-content',
-		// 	event: 'click',
-		// 	handler: self.editIndentAction
-		// },
-			{
-			element: '#indentPage',
-			selector: '#indent-list .swipeout',
-			event: 'delete',
-			handler: self.removeIndentAction
-		}, {
-			element: '#indentPage',
-			selector: '.pull-to-refresh-content',
-			event: 'refresh',
-			handler: self.refreshIndents
-		}]);
+		api.getOrders(function (data) {
+			indentRepository['orders'] = data;
+			indentRepository['orderColors'] = {};
+
+			data.forEach(function (order) {
+				api.getOrderColors(function (data) {
+					indentRepository['orderColors'][order.id] = [].concat(data).concat(gRepository['colors']);
+				}, order.id);
+			});
+
+			api.getMaterials(function (data) {
+				indentRepository['materials'] = data;
+
+				api.getCrafts(function (data) {
+					indentRepository['crafts'] = data;
+
+					api.getMfgstorages(function (data) {
+						indentRepository['mfgstorages'] = data;
+
+						setTimeout(function () {
+							nrApp.hideIndicator();
+
+							var output = utils.renderTpl(indentNewPageHtml, {repository: indentRepository});
+							$$('#indentContent').html(output);
+						}, 1000);
+					});
+				});
+			});
+		});
+
+		this.bindEvents();
     },
 
-	pageAfterAnimation: function () {
-		this.unbindEvents();
-		this.bindEvents();
-
-		$$('#indentPage .pull-to-refresh-content').scrollTop(0, 300);
-
-		nrApp.pullToRefreshTrigger('#indentPage .pull-to-refresh-content');
-		this.refreshIndents();
+	pageBack: function () {
+		indentRepository = {};
 	},
 
-	bindEvents: function() {
-    	var self = this;
-
-		utils.bindEvents([{
-			element: '#homeView',
-			selector: '.indent-new-button',
-			event: 'click',
-			handler: self.newIndentAction
-		}]);
-	},
-
-	unbindEvents: function() {
+	bindEvents: function () {
 		var self = this;
 
-		utils.unbindEvents([{
-			element: '#homeView',
-			selector: '.indent-new-button',
+		var bindings = [{
+			element: '#indentPage',
+			selector: 'select[name="mfgstorage"]',
+			event: 'change',
+			handler: self.mfgstorageChange
+		}, {
+			element: '#indentPage',
+			selector: 'select[name="order"]',
+			event: 'change',
+			handler: self.orderChange
+		}, {
+			element: '#indentPage',
+			selector: '.indent-save-button',
 			event: 'click',
 			handler: self.newIndentAction
-		}]);
+		}];
+
+		utils.bindEvents(bindings);
 	},
 
-	refreshIndents: function() {
-		api.getIndents(function (data) {
-			if (data.length > 0) {
-				var output = utils.renderTpl(indentItemTemplate, {indents: data});
-				$$('#indent-list').html(output);
+	mfgstorageChange: function(e) {
+		var mfgstorages = indentRepository['mfgstorages'];
+
+		var mfgstorage = {};
+		$$.each(mfgstorages, function (idx, item) {
+			if (item.id == $$(e.target)[0].value) {
+				mfgstorage = item;
 			}
+		});
 
-			nrApp.pullToRefreshDone();
-		}, gUser.employee_id);
-	},
+		if (utils.isEmpty(mfgstorage)) {
+			return;
+		}
+log(mfgstorage)
+		$$.each(indentRepository['orders'], function (idx, item) {
+			if (item.customcode == mfgstorage.customcode) {
+				$$('select[name="order"]')[0].selectedIndex = idx + 1;
+				$$('.indent-order .item-after').html(mfgstorage.customcode);
+				$$('#indentPage select[name="order"]').trigger('change');
+			}
+		});
 
-	editIndentAction: function (e) {
-		nrApp.getCurrentView().router.load({
-			content: indentEditPageHtml,
-			context: {
-				id: $$(e.target).parents('li.indent-item').data('id'),
-				customcode: $$(e.target).parents('li.indent-item').data('customcode')
+		$$.each(indentRepository['orderColors'][$$('#indentPage select[name="order"]')[0].value], function (idx, item) {
+			if (item.color == mfgstorage.color) {
+				$$('select[name="color"]')[0].selectedIndex = idx + 1;
+				$$('.indent-color .item-after').html(mfgstorage.color);
+			}
+		});
+
+		$$.each(indentRepository['materials'], function (idx, item) {
+			if (item.material == mfgstorage.material) {
+				$$('select[name="material"]')[0].selectedIndex = idx + 1;
+				$$('.indent-material .item-after').html(mfgstorage.material);
+			}
+		});
+
+		$$.each(indentRepository['crafts'], function (idx, item) {
+			if (item.craft == mfgstorage.craft) {
+				$$('select[name="craft"]')[0].selectedIndex = idx + 1;
+				$$('.indent-craft .item-after').html(mfgstorage.craft);
 			}
 		});
 	},
 
-	removeIndentAction: function() {
-		api.removeIndent(function (data) {
-		}, gUser.employee_id, $$(this).data('id'));
+	orderChange: function(e) {
+    	log(22222)
+		var colors = indentRepository['orderColors'][$$(e.target)[0].value];
+		var output = utils.renderTpl(indentNewColorTpl, {colors: colors});
+		$$('#orderColor').html(output);
 	},
 
 	newIndentAction: function() {
-		nrApp.getCurrentView().router.loadContent(indentNewPageHtml);
+		log()
+    	var savedData = {
+			mfgstorage: $$('select[name="mfgstorage"]')[0].value,
+			order: $$('select[name="order"]')[0].value,
+			color: $$('select[name="color"]')[0].value,
+			material: $$('select[name="material"]')[0].value,
+			craft: $$('select[name="craft"]')[0].value,
+			lot: $$('input[name="lot"]')[0].value,
+			volume: $$('input[name="volume"]')[0].value,
+			quantity: $$('input[name="quantity"]')[0].value,
+			remark: $$('textarea[name="remark"]')[0].value,
+			employee_: gUser.employee_id
+		};
+    	log('save');
+		log(savedData);
+		// nrApp.getCurrentView().router.loadContent(indentNewPageHtml);
 	}
 };
 

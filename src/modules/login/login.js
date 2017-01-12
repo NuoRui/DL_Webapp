@@ -5,6 +5,7 @@ var api = require('../core/api');
 var storage = require('../core/storage');
 var repository = require('../core/repository');
 var loginPopupHtml = require('./login.html');
+var homeModule = require('../home/home');
 
 var loginModule = {
     show: function() {
@@ -50,7 +51,8 @@ var loginModule = {
 			setTimeout(function () {
 				nrApp.closeModal('#loginPopup');
 				nrApp.hideIndicator();
-			}, 1000);
+				homeModule.showCompanies();
+			}, 2000);
 
         }, usernameValue, passwordValue);
     },

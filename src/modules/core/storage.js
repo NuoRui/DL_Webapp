@@ -21,6 +21,16 @@ module.exports = {
         localStorage.removeItem('companies');
     },
 
+	getOrders: function () {
+		return JSON.parse(localStorage.getItem('orders') || '[]');
+	},
+	setOrders: function (orders) {
+		localStorage.setItem('orders', JSON.stringify(orders));
+	},
+	delOrders: function () {
+		localStorage.removeItem('orders');
+	},
+
     getMaterials: function () {
         return JSON.parse(localStorage.getItem('materials') || '[]');
     },

@@ -30,6 +30,19 @@ module.exports = {
         });
     },
 
+	getOrders: function(callback) {
+		xhr.simpleGet('mfgstorage/listorder', {
+		}, function(res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
+
 	getMaterials: function (callback) {
         xhr.simpleGet('mfgstorage/listmaterial', {
         }, function(res) {
@@ -69,9 +82,23 @@ module.exports = {
         });
     },
 
+	getOrderColors: function (callback, orderId) {
+		xhr.simpleGet('mfgstorage/listcolori', {
+			order_id: orderId
+		}, function(res) {
+			if (res.status) {
+				if (callback && typeof(callback) == 'function') {
+					callback(res.result);
+				}
+			} else {
+				nrApp.alert(res.result);
+			}
+		});
+	},
 
     getMfgstorages: function(callback) {
         xhr.simpleGet('mfgstorage/list', {
+			company_id: gCurrentCompany.id
         }, function(res) {
             if (res.status) {
                 if (callback && typeof(callback) == 'function') {

@@ -11,6 +11,12 @@ module.exports = {
 			repository['companies'] = storage.getCompanies();
 		});
 
+		api.getOrders(function (data) {
+			storage.setOrders(data);
+
+			repository['orders'] = storage.getOrders();
+		});
+
         api.getMaterials(function (data) {
             storage.setMaterials(data);
 
@@ -79,10 +85,35 @@ module.exports = {
 	getRepository: function() {
 		var repository = {};
 
-		var mfgstorages = storage.getMfgstorages();
-		if (!utils.isEmpty(mfgstorages)) {
-			repository['mfgstorages'] = mfgstorages;
+		var companies = storage.getCompanies();
+		if (!utils.isEmpty(companies)) {
+			repository['companies'] = companies;
 		}
+
+		var orders = storage.getOrders();
+		if (!utils.isEmpty(orders)) {
+			repository['orders'] = orders;
+		}
+
+		var materials = storage.getMaterials();
+		if (!utils.isEmpty(materials)) {
+			repository['materials'] = materials;
+		}
+
+		var crafts = storage.getCrafts();
+		if (!utils.isEmpty(crafts)) {
+			repository['crafts'] = crafts;
+		}
+
+		var colors = storage.getColors();
+		if (!utils.isEmpty(colors)) {
+			repository['colors'] = colors;
+		}
+
+		// var mfgstorages = storage.getMfgstorages();
+		// if (!utils.isEmpty(mfgstorages)) {
+		// 	repository['mfgstorages'] = mfgstorages;
+		// }
 
         // var companies = storage.getCompanies();
         // if (!utils.isEmpty(companies)) {
@@ -118,7 +149,13 @@ module.exports = {
 	},
 
 	delRepository: function() {
-        storage.delMfgstorages();
+		storage.delCompanies();
+		storage.delOrders();
+		storage.delCrafts();
+		storage.delMaterials();
+		storage.delColors();
+
+        // storage.delMfgstorages();
         // storage.delTradeCompanies();
         // storage.delCompanies();
         // storage.delBillCompanies();

@@ -10,16 +10,14 @@ var homeModule = {
 	init: function() {
 		this.bindEvent();
 
-        var output = utils.renderTpl(companiesTemplate, {repository: gRepository});
-        $$('#companySelection').html(output);
+		this.showCompanies();
 	},
-
-    pageInit: function (page) {
-        this.bindEvent();
-    },
 
 	pageAfterAnimation: function (page) {
 		nrApp.showToolbar('.main-toolbar');
+
+		this.bindEvent();
+		this.showCompanies();
 	},
 
 	bindEvent: function () {
@@ -44,6 +42,29 @@ var homeModule = {
 
 	quotationSelector: function () {
 		nrApp.getCurrentView().router.loadContent(quotationPageHtml)
+	},
+
+	showCompanies: function () {
+		if (!gRepository['companies']) {
+			return;
+		}
+
+		var output = utils.renderTpl(companiesTemplate, {repository: gRepository});
+		$$('#companySelection').html(output);
+
+		var self = this;
+		utils.bindEvents([{
+			element: '#companySelection',
+			selector: 'select[name="company"]',
+			event: 'change',
+			handler: self.refreshCurrentCompany
+		}]);
+
+		this.refreshCurrentCompany();
+	},
+
+	refreshCurrentCompany: function () {
+		gCurrentCompany.id = $$('#companySelection select[name="company"]')[0].value;
 	}
 };
 

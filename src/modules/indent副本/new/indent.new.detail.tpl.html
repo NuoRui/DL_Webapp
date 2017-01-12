@@ -1,0 +1,32 @@
+<div class="content-block">
+	<div class="content-block-title" style="margin-top: 15px;">
+		<p class="buttons-row">
+			<a href="#" class="detail-item-add"><i class="icon hw-add"></i></a>
+		</p>
+	</div>
+	<div id="indentDetailItems" class="list-block">
+		<ul style="background-color: transparent;">
+			{{#each detailItems}}
+			<li data-idx="{{index}}" class="swipeout indent-item">
+				<div class="swipeout-content item-content">
+					<div class="item-inner">
+						<div class="item-title-row">
+							<div class="item-subtitle">{{materialName}}   {{materialLotName}}</div>
+							<div class="item-after">{{gradeId}}</div>
+						</div>
+						<div class="item-title-row">
+							<div class="item-subtitle"></div>
+							<div class="item-after">{{totalPrice}}</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="swipeout-actions-right">
+					<a href="#" class="swipeout-delete" data-close-on-cancel="true" data-confirm="是否确定要删除?">删除</a>
+				</div>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+</div>
+
