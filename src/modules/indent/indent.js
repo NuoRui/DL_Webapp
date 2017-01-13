@@ -85,7 +85,7 @@ var indentModule = {
 		if (utils.isEmpty(mfgstorage)) {
 			return;
 		}
-log(mfgstorage)
+
 		$$.each(indentRepository['orders'], function (idx, item) {
 			if (item.customcode == mfgstorage.customcode) {
 				$$('select[name="order"]')[0].selectedIndex = idx + 1;
@@ -117,28 +117,30 @@ log(mfgstorage)
 	},
 
 	orderChange: function(e) {
-    	log(22222)
 		var colors = indentRepository['orderColors'][$$(e.target)[0].value];
 		var output = utils.renderTpl(indentNewColorTpl, {colors: colors});
 		$$('#orderColor').html(output);
 	},
 
 	newIndentAction: function() {
-		log()
     	var savedData = {
-			mfgstorage: $$('select[name="mfgstorage"]')[0].value,
-			order: $$('select[name="order"]')[0].value,
-			color: $$('select[name="color"]')[0].value,
-			material: $$('select[name="material"]')[0].value,
-			craft: $$('select[name="craft"]')[0].value,
+            order_id: $$('select[name="mfgstorage"]')[0].value,
+            customcode: $$('select[name="order"]')[0].options[$$('select[name="order"]')[0].selectedIndex].text,
+			color_: $$('select[name="color"]')[0].value,
+			material_: $$('select[name="material"]')[0].value,
+			craft_: $$('select[name="craft"]')[0].value,
 			lot: $$('input[name="lot"]')[0].value,
 			volume: $$('input[name="volume"]')[0].value,
 			quantity: $$('input[name="quantity"]')[0].value,
 			remark: $$('textarea[name="remark"]')[0].value,
 			employee_: gUser.employee_id
 		};
-    	log('save');
-		log(savedData);
+
+        api.addPackMfgstorage(function (data) {
+            nrApp.alert('点胚成功', '', function () {
+                nrApp.getCurrentView().router.back();
+            });
+        }, savedData);
 		// nrApp.getCurrentView().router.loadContent(indentNewPageHtml);
 	}
 };

@@ -51,7 +51,7 @@ var mfgpickerModule = {
 		nrApp.getCurrentView().router.load({
 			content: mfgpickerDetailPageHtml,
 			context: {
-				id: $$(e.target).parents('li.mfgpicker-item').data('id'),
+				pid: $$(e.target).parents('li.mfgpicker-item').data('id'),
 				customcode: $$(e.target).parents('li.mfgpicker-item').data('customcode')
 			}
 		});

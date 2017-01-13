@@ -6,21 +6,16 @@
             </a>
         </div>
         <div class="center sliding">追踪</div>
-	    <div class="right">
-		    <a href="#" class="mfgpicker-new-button link icon-only">
-			    <i class="icon hw-add"></i>
-		    </a>
-	    </div>
     </div>
 </div>
 
 <div class="pages navbar-through">
-    <div id="mfgpickerDetailPage" data-page="mfgpicker.detail.page" class="page">
+    <div id="mfgpickerDetailPage" data-page="mfgpicker.detail.page" class="page" data-pid={{pid}}>
 	    <div class="page-content">
 	    <div class="content-block">
 		    <div class="content-block-title" style="margin-top: 15px;">
 			    <p class="buttons-row">
-				    <a data-id={{id}} href="#" class="detail-item-add"><i class="icon hw-add"></i></a>
+				    <a href="#" class="detail-item-add"><i class="icon hw-add" data-pid={{pid}}></i></a>
 			    </p>
 		    </div>
 		    <div id="mfgpickerDetailItems" class="list-block">

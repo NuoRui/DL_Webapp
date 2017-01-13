@@ -12,6 +12,7 @@ var mfgpickerDetailItemPopupModule = require('./mfgpicker.detail.item.popup.js')
 
 var mfgpickerDetailModule = {
     pageInit: function () {
+
 		this.bindEvents();
 
 		// this.initRenderNewBaseItem();
@@ -21,10 +22,18 @@ var mfgpickerDetailModule = {
 		// indentNewDetailModule.init();
     },
 
+    pageBeforeAnimation: function (page) {
+        this.refreshDetailItems();
+    },
+
 	bindEvents: function () {
 		var self = this;
 
 		var bindings = [{
+            element: '#mfgpickerDetailPage',
+            event: 'refresh',
+            handler: self.refreshDetailItems
+		}, {
 			element: '#mfgpickerDetailPage',
 			selector: 'a.detail-item-add',
 			event: 'click',
@@ -40,7 +49,7 @@ var mfgpickerDetailModule = {
 	},
 
 	popupMfgpickerDetailAction: function (e) {
-		mfgpickerDetailItemPopupModule.init();
+		mfgpickerDetailItemPopupModule.init($$(e.target).data('pid'));
 	},
 
 	removeMfgpickerDetailAction: function (e) {
@@ -55,48 +64,12 @@ var mfgpickerDetailModule = {
 		// });
 	},
 
-	// initRenderNewBaseItem: function() {
-	// 	var output = utils.renderTpl(indentNewBaseTemplate, {repository: gRepository});
-	// 	$$('#tabBase').html(output);
-    //
-     //    $$('.bill-companies').hide();
-     //    $$('#billCompanies0').show();
-	// },
-    //
-	// initRenderNewDetailItem: function() {
-	// 	var output = utils.renderTpl(indentNewDetailTemplate, {});
-	// 	$$('#tabDetail').html(output);
-	// },
-
 	refreshDetailItems: function() {
-		var output = utils.renderTpl(mfgpickerDetailItemTemplate, {});
-		$$('#mfgpickerDetailItems').html(output);
+    	api.getMfgpickerItems(function (data) {
+            var output = utils.renderTpl(mfgpickerDetailItemTemplate, {detailItems: data});
+            $$('#mfgpickerDetailItems').html(output);
+        }, $$('#mfgpickerDetailPage').data('pid'));
 	},
-
-	indentSaveAction: function () {
-		var baseData = indentNewBaseModule.getBaseData();
-		var detailItemsData = indentNewDetailModule.getDetailItems();
-        var saveItemsData = detailItemsData.map(function (data) {
-			return {
-				material_: data.materialId,
-				grade: data.gradeId,
-				quantity: data.quantity,
-				unit_: data.unitId,
-				convert: data.convert,
-				kilo: data.kilo,
-				price: data.price,
-				fare_price: data.farePrice,
-				remark: data.remark
-			}
-        });
-
-		api.saveIndent(function (data) {
-			nrApp.alert('订单保存成功', '', function () {
-				nrApp.getCurrentView().router.back();
-			});
-
-		}, gUser.employee_id, {data: baseData, items: JSON.stringify(saveItemsData)});
-	}
 };
 
 module.exports = mfgpickerDetailModule;
