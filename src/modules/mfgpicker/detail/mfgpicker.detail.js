@@ -41,7 +41,7 @@ var mfgpickerDetailModule = {
 		}, {
 			element: '#mfgpickerDetailPage',
 			selector: '.swipeout',
-			event: 'deleted',
+			event: 'delete',
 			handler: self.removeMfgpickerDetailAction
 		}];
 
@@ -53,15 +53,8 @@ var mfgpickerDetailModule = {
 	},
 
 	removeMfgpickerDetailAction: function (e) {
-		// detailItems.splice($$(e.target).data('idx'), 1);
-		//
-		// var counter = 0;
-		// var items = $$('#indentDetailItems .swipeout');
-		// items.each(function (idx, item) {
-		// 	if (!$$(item).hasClass('deleting')) {
-		// 		$$(item).attr('data-idx', counter++);
-		// 	}
-		// });
+    	api.removeMfgpickerPicker(function (data) {
+        }, $$(this).data('id'));
 	},
 
 	refreshDetailItems: function() {

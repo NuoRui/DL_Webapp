@@ -4,8 +4,6 @@ var aboutModule = require('./about/about');
 var mfgpickerModule = require('./mfgpicker/mfgpicker');
 var mfgpickerDetailModule = require('./mfgpicker/detail/mfgpicker.detail');
 var indentModule = require('./indent/indent');
-var indentNewModule = require('./indent/new/indent.new');
-var indentEditModule = require('./indent/edit/indent.edit');
 
 
 
@@ -71,14 +69,6 @@ module.exports = {
 			case 'indent.page':
 				indentModule.pageBeforeInit && indentModule.pageBeforeInit(page);
 				break;
-
-			case 'indent.new.page':
-				indentNewModule.pageBeforeInit && indentNewModule.pageBeforeInit(page);
-				break;
-
-			case 'indent.edit.page':
-				indentEditModule.pageBeforeInit && indentEditModule.pageBeforeInit(page);
-				break;
 		}
 	},
 
@@ -108,14 +98,6 @@ module.exports = {
 
 			case 'indent.page':
 				indentModule.pageInit && indentModule.pageInit(page);
-				break;
-
-			case 'indent.new.page':
-				indentNewModule.pageInit && indentNewModule.pageInit(page);
-				break;
-
-			case 'indent.edit.page':
-				indentEditModule.pageInit && indentEditModule.pageInit(page);
 				break;
 		}
 	},
@@ -147,14 +129,6 @@ module.exports = {
 			case 'indent.page':
 				indentModule.pageBeforeAnimation && indentModule.pageBeforeAnimation(page);
 				break;
-
-			case 'indent.new.page':
-				indentNewModule.pageBeforeAnimation && indentNewModule.pageBeforeAnimation(page);
-				break;
-
-			case 'indent.edit.page':
-				indentEditModule.pageBeforeAnimation && indentEditModule.pageBeforeAnimation(page);
-				break;
 		}
 	},
 
@@ -184,14 +158,6 @@ module.exports = {
 
 			case 'indent.page':
 				indentModule.pageAfterAnimation && indentModule.pageAfterAnimation(page);
-				break;
-
-			case 'indent.new.page':
-				indentNewModule.pageAfterAnimation && indentNewModule.pageAfterAnimation(page);
-				break;
-
-			case 'indent.edit.page':
-				indentEditModule.pageAfterAnimation && indentEditModule.pageAfterAnimation(page);
 				break;
 		}
     },
@@ -223,14 +189,6 @@ module.exports = {
 			case 'indent.page':
 				indentModule.pageBack && indentModule.pageBack(page);
 				break;
-
-			case 'indent.new.page':
-				indentNewModule.pageBack && indentNewModule.pageBack(page);
-				break;
-
-			case 'indent.edit.page':
-				indentEditModule.pageBack && indentEditModule.pageBack(page);
-				break;
 		}
 	},
 
@@ -260,14 +218,6 @@ module.exports = {
 
 			case 'indent.page':
 				indentModule.pageBeforeRemove && indentModule.pageBeforeRemove(page);
-				break;
-
-			case 'indent.new.page':
-				indentNewModule.pageBeforeRemove && indentNewModule.pageBeforeRemove(page);
-				break;
-
-			case 'indent.edit.page':
-				indentEditModule.pageBeforeRemove && indentEditModule.pageBeforeRemove(page);
 				break;
 		}
 	}

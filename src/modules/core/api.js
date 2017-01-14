@@ -137,8 +137,8 @@ module.exports = {
 		});
 	},
 
-	removeMfgpicker: function (callback, id) {
-		xhr.simplePost('mfgstorage/delpack', {
+	removeMfgpickerPack: function (callback, id) {
+		xhr.simplePost('mfgpicker/delpack', {
 		}, {
 			id: id
 		}, function (res) {
@@ -177,5 +177,20 @@ module.exports = {
                 nrApp.alert(res.result);
             }
         });
-    }
+    },
+
+    removeMfgpickerPicker: function (callback, id) {
+        xhr.simplePost('mfgpicker/delpicker', {
+        }, {
+            id: id
+        }, function (res) {
+            if (res.status) {
+                if (callback && typeof(callback) == 'function') {
+                    callback(res.result);
+                }
+            } else {
+                nrApp.alert(res.result);
+            }
+        });
+    },
 };

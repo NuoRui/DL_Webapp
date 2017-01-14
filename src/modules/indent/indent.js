@@ -16,12 +16,6 @@ var indentModule = {
 			indentRepository['orders'] = data;
 			indentRepository['orderColors'] = {};
 
-			data.forEach(function (order) {
-				api.getOrderColors(function (data) {
-					indentRepository['orderColors'][order.id] = [].concat(data).concat(gRepository['colors']);
-				}, order.id);
-			});
-
 			api.getMaterials(function (data) {
 				indentRepository['materials'] = data;
 
@@ -36,13 +30,38 @@ var indentModule = {
 
 							var output = utils.renderTpl(indentNewPageHtml, {repository: indentRepository});
 							$$('#indentContent').html(output);
-						}, 1000);
+						}, 500);
 					});
 				});
 			});
+
+            data.forEach(function (order) {
+                api.getOrderColors(function (data) {
+                    indentRepository['orderColors'][order.id] = [].concat(data);
+                    for (var i = 0; i < gRepository['colors'].length; i++) {
+                        var existed = data.some(function (item) {
+                            if (gRepository['colors'][i].id == item.id) {
+								return true;
+                            }
+                        });
+
+						if (!existed) {
+                            indentRepository['orderColors'][order.id].push(gRepository['colors'][i]);
+						}
+					}
+                }, order.id);
+            });
 		});
 
 		this.bindEvents();
+    },
+
+    pageBeforeAnimation: function (page) {
+        if ($$(page.fromPage.container).data('select-name') == 'mfgstorage') {
+        	var text = $$('.mfgstorage-select .item-content .item-after').html();
+            var exp = /&lt;div style="display:none" &gt;([\s\S]+)&lt;\/div&gt;/;
+            $$('.mfgstorage-select .item-content .item-after').html((exp.exec(text)[1]).trim());
+		}
     },
 
 	pageBack: function () {
@@ -71,6 +90,7 @@ var indentModule = {
 
 		utils.bindEvents(bindings);
 	},
+
 
 	mfgstorageChange: function(e) {
 		var mfgstorages = indentRepository['mfgstorages'];

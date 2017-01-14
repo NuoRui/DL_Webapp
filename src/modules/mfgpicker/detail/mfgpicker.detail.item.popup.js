@@ -30,7 +30,8 @@ var indentNewDetailItemPopupModule = {
         var savedData = {
             pid: $$('#mfgpickerDetailItemPopup').data('pid'),
             name: $$('#mfgpickerDetailItemPopup select[name="follow"]')[0].value,
-            confirmer: $$('#mfgpickerDetailItemPopup input[name="confirmer"]')[0].value,
+            confirmer: gUser.employee_id,
+            confirmtime: moment($$('#mfgpickerDetailItemPopup input[name="confirmtime"]')[0].value).format('YYYY-MM-DD hh:mm:ss'),
             remark: $$('#mfgpickerDetailItemPopup textarea[name="remark"]')[0].value
         };
 

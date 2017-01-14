@@ -58,7 +58,7 @@ var mfgpickerModule = {
 	},
 
 	removeMfgpickerAction: function() {
-		api.removeMfgpicker(function (data) {
+		api.removeMfgpickerPack(function (data) {
 		}, $$(this).data('id'));
 	}
 };

@@ -5,15 +5,15 @@ module.exports = {
 
     checkConnection: function () {
 		if (utils.isPhonegap()) {
-			var network = networkStatus.checkConnection();
-			if (network === 'NoNetwork') {
-				nrApp.alert('无网络连接', function () {
-					nrApp.hideIndicator();
-					nrApp.hidePreloader();
-				});
-
-				return false;
-			}
+			// var network = networkStatus.checkConnection();
+			// if (network === 'NoNetwork') {
+			// 	nrApp.alert('无网络连接', function () {
+			// 		nrApp.hideIndicator();
+			// 		nrApp.hidePreloader();
+			// 	});
+            //
+			// 	return false;
+			// }
 		}
 
 		return true;
@@ -119,7 +119,6 @@ module.exports = {
 					(typeof (callback) === 'function') ? callback(data) : '';
 
 				} else {
-
 					hiApp.alert(codeLevel.message, function () {
 						hiApp.hideIndicator();
 						hiApp.hidePreloader();

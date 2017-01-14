@@ -2,11 +2,21 @@
 	<div class="list-block">
 		<ul style="background-color: transparent;">
 			<li>
-				<a href="#" class="item-link smart-select" data-back-on-select="true">
+				<a href="#" class="item-link smart-select mfgstorage-select" data-back-on-select="true">
 					<select name="mfgstorage">
 						<option value="" selected disabled></option>
 						{{#each repository.mfgstorages}}
-						<option value="{{id}}">{{name}}</option>
+						<option value="{{id}}">
+							&lt;div class="first-line" &gt;
+								&lt;span class="left" &gt;{{taskcode}}&lt;/span&gt;
+								&lt;span class="right" &gt;{{billdate}}&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;div class="second-line" &gt;
+								&lt;span class="left" &gt;{{customcode}}&lt;/span&gt;
+								&lt;span class="right" &gt;{{name}}&lt;/span&gt;
+							&lt;/div&gt;
+							&lt;div style="display:none" &gt;{{#if taskcode}}{{taskcode}}{{else}}已选择{{/if}}&lt;/div&gt;
+						</option>
 						{{/each}}
 					</select>
 					<div class="item-content">
@@ -83,7 +93,7 @@
 					<div class="item-inner">
 						<div class="item-title label">缸号</div>
 						<div class="item-input">
-							<input type="number" name="lot" placeholder="0" style="text-align: right">
+							<input type="number" name="lot" style="text-align: right">
 						</div>
 					</div>
 				</div>
@@ -93,7 +103,7 @@
 					<div class="item-inner">
 						<div class="item-title label">匹数</div>
 						<div class="item-input">
-							<input type="number" name="volume" placeholder="0" style="text-align: right">
+							<input type="number" name="volume" style="text-align: right">
 						</div>
 					</div>
 				</div>
@@ -103,7 +113,7 @@
 					<div class="item-inner">
 						<div class="item-title label">数量</div>
 						<div class="item-input">
-							<input type="number" name="quantity" placeholder="0" style="text-align: right">
+							<input type="number" name="quantity" style="text-align: right">
 						</div>
 					</div>
 				</div>
