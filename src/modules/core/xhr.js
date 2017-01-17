@@ -11,7 +11,6 @@ module.exports = {
 			// 		nrApp.hideIndicator();
 			// 		nrApp.hidePreloader();
 			// 	});
-            //
 			// 	return false;
 			// }
 		}
